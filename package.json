@@ -1,0 +1,30 @@
+{
+  "name": "hvac2",
+  "version": "1.0.0",
+  "description": "Hahn hvac2 Controller",
+  "main": "js/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mark-hahn/hvac2"
+  },
+  "author": "Mark Hahn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mark-hahn/hvac2/issues"
+  },
+  "homepage": "https://github.com/mark-hahn/hvac2",
+  "dependencies": {
+    "moment": "^2.10.6",
+    "node-static": "^0.7.7",
+    "primus": "^3.2.2",
+    "request": "^2.61.0",
+    "rx": "^3.1.1",
+    "serialport": "^1.7.4",
+    "sprintf-js": "^1.0.3",
+    "sprintf.js": "^0.1.4",
+    "sqlite3": "^3.0.10",
+    "teacup": "^2.0.0",
+    "underscore": "^1.8.3",
+    "ws": "^0.8.0"
+  }
+}

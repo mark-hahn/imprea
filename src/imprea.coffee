@@ -38,11 +38,13 @@ class Imperea
           globalObservableValues[name] = value
           for observer in globalObservers[name] ? []
             observer.imprea[name] = value
-            observer.func.call observer.imprea
+            observer.func.call observer.imprea, name, value
 
   description: (@description) ->
   
   react: (args...) ->
+    if args[0] is '*'
+      args = _.keys globalObservableValues
     nl = nameList args
     if not (func = nl.func)
       throw new Error 

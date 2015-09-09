@@ -22,19 +22,19 @@ Most advantages of the observer pattern, in particular the ReactiveX observable 
 
 ### Implementation
 
-Unlike ReactiveX, Imprea is only implemented for Javascript.  It works in either the server (node) or the browser.  It is provided in a module that exports one global Imprea object for the entire application.  Modules that extend Imprea or implement the application logic are namespaced so the global has no naming conflicts.
+Unlike ReactiveX, Imprea is only implemented for Javascript.  It works in either the server (node) or the browser.  It is provided in a module that exports the Imprea class.  Imprea modules each have instance of the Imprea class that contains the functionality of the module.
 
 ### Sample Code
 
 The interaction with the Impera controller is through an API that is simple and DSL-like.  It looks best in coffeescript and is written in coffeescript. A small example module that watches two observer inputs and provides observers calculated from those inputs.
 
 ```coffee
-  imprea = require('imprea') module, 'sumDiff'   # default global namespace for this module
+  imprea = require('imprea') 'sumDiff'   # global namespace for this module
   
   imprea.outputs {obsSum$, obsDiff$}  # public observables output from this module
   imprea.description 'Produce sum and difference observables of two observed inputs'
   
-  imprea.react {obsA$, obsB$) ->      # executes on any change to input observables obsA$ and obsB$
+  imprea.react {obsA$, obsB$}, ->     # executes on any change to inputs obsA$ and obsB$
     @obsSum$  @obsA$ + @obsB$         # pushes sum to output observable obsSum$
     @obsDiff$ @obsA$ - @obsB$         # pushes difference to output observable obsDiff$
 ```
@@ -69,7 +69,7 @@ As you can see from the previous example imprea can act like a functional DSL su
  
 As of this writing (9/5/2015) implementation is just beginning.  Imprea is being developed by replacing Reactive code in an existing application with Imprea code.  So the operators implemented will seem random at first.
 
- ### License
+### License
  
  Imprea is copyright Mark Hahn using the standard MIT license.
  

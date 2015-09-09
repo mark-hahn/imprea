@@ -1,8 +1,8 @@
 {
   "name": "imprea",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Imperative reactive framework (DSL) for node and the browser.",
-  "main": "js/impera.js",
+  "main": "js/imprea.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/mark-hahn/imprea"

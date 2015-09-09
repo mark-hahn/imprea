@@ -2,7 +2,7 @@
 
 Imperative reactive framework (DSL) for node and the browser.
 
-ReactiveX is a very powerful reactive framework with a functional foundation.  Imprea is a framework that provides the capabilities of ReactiveX but using an imperative foundation.  As many features of ReactiveX as possible are provided in impera.
+ReactiveX is a very powerful reactive framework with a functional foundation.  Imprea is a framework that provides the capabilities of ReactiveX but using an imperative foundation.  As many features of ReactiveX as possible are provided in imprea.
 
 ### Philosophy
 
@@ -26,7 +26,7 @@ Unlike ReactiveX, Imprea is only implemented for Javascript.  It works in either
 
 ### Sample Code
 
-The interaction with the Impera controller is through an API that is simple and DSL-like.  It looks best in coffeescript and is written in coffeescript. A small example module that watches two observer inputs and provides observers calculated from those inputs.
+The interaction with the Imprea controller is through an API that is simple and DSL-like.  It looks best in coffeescript and is written in coffeescript. A small example module that watches two observer inputs and provides observers calculated from those inputs.
 
 ```coffee
   imprea = require('imprea') 'sumDiff'   # global namespace for this module

@@ -65,7 +65,7 @@ Don't confuse the above code with normal functional compostion. Even though the 
  
 As you can see from the previous example imprea can act like a functional DSL such as ReactiveX. The difference is that it is very easy to use imperative code mixed in with the functional, much like Javascript or many other languages.
  
-### Status 
+### Status (Do Not Use)
  
 As of this writing (9/5/2015) implementation is just beginning.  Imprea is being developed by replacing Reactive code in an existing application with Imprea code.  So the operators implemented will seem random at first.
 

@@ -14,12 +14,12 @@ nameList = (args...) ->
   names = []
   for arg in args
     switch
-      when typeof arg is 'string' then names.push arg
-      when _.isArray arg then  names = names.concat nameList arg...
-      when _.isObject arg then names = names.concat _.keys arg
       when _.isFunction arg then func = arg
+      when _.isArray    arg then names = names.concat nameList(arg).names
+      when _.isObject   arg then names = names.concat _.keys arg
+      else                       names.push arg.toString()
   for name in names
-    if name in [ 'outputs', 'description', 'react', 
+    if name in [ 'outputs', 'description', 'react' 
                  'prototype', '__proto__', 'constructor', 'toString']
       throw new Error 
         message: "Imprea Error in #{@nameSpace}: \"#{name}\" is reserved " +
@@ -37,17 +37,20 @@ class Imperea
         if not _.isEqual globalObservableValues[name], value
           globalObservableValues[name] = value
           for observer in globalObservers[name] ? []
-            observer[name] = value
-            observer.reactFunc.call @ 
+            observer.imprea[name] = value
+            observer.func.call observer.imprea
 
+  description: (@description) ->
+  
   react: (args...) ->
     nl = nameList args
-    if not (@reactFunc = nl.func)
+    if not (func = nl.func)
       throw new Error 
         message: "Imprea Error in #{@nameSpace}: " +
                  'a react argument list must contain a function.'
     for name in nl.names
-      @[name] = null
+      @[name] ?= null
       globalObservers[name] ?= []
-      globalObservers[name].push @
+      globalObservers[name].push {imprea: @, func}
+    
     

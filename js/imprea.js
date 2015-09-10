@@ -72,9 +72,6 @@
             }
             return _this[name] = function(value) {
               var k, len1, observer, ref1, ref2, results1;
-              if (/^ctrl/.test(name)) {
-                console.log(name, '=', value);
-              }
               if (!_.isEqual(globalObservableValues[name], value)) {
                 globalObservableValues[name] = value;
                 ref2 = (ref1 = globalObservers[name]) != null ? ref1 : [];

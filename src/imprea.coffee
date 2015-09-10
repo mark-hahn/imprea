@@ -36,8 +36,6 @@ class Imprea
     for name in nl.names then do (name) =>
       globalObservableValues[name] ?= null
       @[name] = (value) =>
-        if /^ctrl/.test name
-          console.log name, '=', value
         if not _.isEqual globalObservableValues[name], value
           globalObservableValues[name] = value
           for observer in globalObservers[name] ? []

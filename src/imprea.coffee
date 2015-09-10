@@ -40,14 +40,16 @@ class Imprea
           globalObservableValues[name] = value
           for observer in globalObservers[name] ? []
             observer.imprea[name] = value
-            observer.func.call observer.imprea, name, value
+            observer.func.call observer.reactCallSelf, name, value
 
   description: (@description) ->
   
   react: (args...) ->
+    reactCallSelf = @
     if args[0] is '*'
       allNames = _.keys globalObservableValues
       args = allNames.concat args[1]
+      reactCallSelf = globalObservableValues
     nl = @imprea_nameList args
     if not (func = nl.func)
       throw new Error "Imprea Error in \"#{@nameSpace}\": " +
@@ -55,7 +57,7 @@ class Imprea
     for name in nl.names
       @[name] ?= null
       globalObservers[name] ?= []
-      globalObservers[name].push {imprea: @, func}
+      globalObservers[name].push {reactCallSelf, func}
     
 module.exports = (namespace) ->
   new Imprea namespace

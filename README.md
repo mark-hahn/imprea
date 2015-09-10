@@ -31,7 +31,7 @@ The interaction with the Imprea controller is through an API that is simple and 
 ```coffee
   imprea = require('imprea') 'sumDiff'   # global namespace for this module
   
-  imprea.outputs {obsSum$, obsDiff$}  # public observables output from this module
+  imprea.output {obsSum$, obsDiff$}  # public observables output from this module
   imprea.description 'Produce sum and difference observables of two observed inputs'
   
   imprea.react {obsA$, obsB$}, ->     # executes on any change to inputs obsA$ and obsB$
@@ -57,7 +57,7 @@ ReactiveX functional operator equivalents are provided by standard modules from 
 @outputObs$ average$ merge$ inputObsA$, inputObsB$
 ```
 
-The chaining above, which is as succint as the functional equivalent, is made possible by setting the default inputs to a module as the arguments to `imprea.react` and the default outputs to the observables specified in `imprea.outputs`.
+The chaining above, which is as succint as the functional equivalent, is made possible by setting the default inputs to a module as the arguments to `imprea.react` and the default outputs to the observables specified in `imprea.output`.
 
 Don't confuse the above code with normal functional compostion. Even though the reactive chain is set up with functions, like `merge$ inputObsA$`, this is only run once and the internal reactive observables then act on events just as ReactiveX does. So this is really a DSL.
  

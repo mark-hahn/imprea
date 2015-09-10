@@ -9,31 +9,35 @@ _ = require 'lodash'
 globalObservers        = {}
 globalObservableValues = {}
 
-nameList = (args...) ->
-  func = null
-  names = []
-  for arg in args
-    switch
-      when _.isFunction arg then func = arg
-      when _.isArray    arg then names = names.concat nameList(arg).names
-      when _.isObject   arg then names = names.concat _.keys arg
-      else                       names.push arg.toString()
-  for name in names
-    if name in [ 'outputs', 'description', 'react' 
-                 'prototype', '__proto__', 'constructor', 'toString']
-      throw new Error 
-        message: "Imprea Error in #{@nameSpace}: \"#{name}\" is reserved " +
-                 'and may not be used as the name of an output observable.'
-  {func, names}    
+class Imprea
+  constructor: (@nameSpace) ->
+  
+  imprea_nameList: (args...) ->
+    func = null
+    names = []
+    for arg, i in args
+      switch
+        when _.isFunction arg then func = arg
+        when _.isArray    arg 
+          nl = @imprea_nameList arg...
+          names = names.concat nl.names
+          func ?= nl.func
+        when _.isObject   arg then names = names.concat _.keys arg
+        else                       names.push arg.toString()
+    for name in names
+      if name in [ 'output', 'description', 'react', 'imprea_nameList',
+                   'prototype', '__proto__', 'constructor', 'toString']
+        throw new Error "Imprea Error in \"#{@nameSpace}\": \"#{name}\" is reserved " +
+                        'and may not be used as the name of an output observable.'
+    {func, names}    
 
-module.exports = 
-class Imperea
-  constructor (@nameSpace) ->
-    
-  outputs: (args...) ->
-    nl = nameList args
-    for name in nl.names
+  output: (args...) ->
+    nl = @imprea_nameList args
+    for name in nl.names then do (name) =>
+      globalObservableValues[name] ?= null
       @[name] = (value) =>
+        if /^ctrl/.test name
+          console.log name, '=', value
         if not _.isEqual globalObservableValues[name], value
           globalObservableValues[name] = value
           for observer in globalObservers[name] ? []
@@ -44,15 +48,17 @@ class Imperea
   
   react: (args...) ->
     if args[0] is '*'
-      args = _.keys globalObservableValues
-    nl = nameList args
+      allNames = _.keys globalObservableValues
+      args = allNames.concat args[1]
+    nl = @imprea_nameList args
     if not (func = nl.func)
-      throw new Error 
-        message: "Imprea Error in #{@nameSpace}: " +
-                 'a react argument list must contain a function.'
+      throw new Error "Imprea Error in \"#{@nameSpace}\": " +
+                      'a react argument list must contain a function.'
     for name in nl.names
       @[name] ?= null
       globalObservers[name] ?= []
       globalObservers[name].push {imprea: @, func}
     
-    
+module.exports = (namespace) ->
+  new Imprea namespace
+  

@@ -54,7 +54,7 @@ class Imprea
     if not (func = nl.func)
       throw new Error "Imprea Error in \"#{@nameSpace}\": " +
                       'a react argument list must contain a function.'
-    for name in nl.names
+    for name in nl.names when typeof @[name] isnt 'function'
       @[name] ?= null
       globalObservers[name] ?= []
       globalObservers[name].push {imprea: @, reactCallSelf, func}

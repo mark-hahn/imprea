@@ -111,6 +111,9 @@
       results = [];
       for (j = 0, len = ref.length; j < len; j++) {
         name = ref[j];
+        if (!(typeof this[name] !== 'function')) {
+          continue;
+        }
         if (this[name] == null) {
           this[name] = null;
         }

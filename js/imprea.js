@@ -118,6 +118,7 @@
           globalObservers[name] = [];
         }
         results.push(globalObservers[name].push({
+          imprea: this,
           reactCallSelf: reactCallSelf,
           func: func
         }));

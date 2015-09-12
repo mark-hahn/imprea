@@ -57,7 +57,7 @@ class Imprea
     for name in nl.names
       @[name] ?= null
       globalObservers[name] ?= []
-      globalObservers[name].push {reactCallSelf, func}
+      globalObservers[name].push {imprea: @, reactCallSelf, func}
     
 module.exports = (namespace) ->
   new Imprea namespace

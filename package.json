@@ -1,6 +1,6 @@
 {
   "name": "imprea",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Imperative reactive framework (DSL) for node and the browser.",
   "main": "js/imprea.js",
   "repository": {

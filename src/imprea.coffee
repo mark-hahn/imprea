@@ -4,24 +4,14 @@ _ = require 'lodash'
 globalObservers        = {}
 globalObservableValues = {}
 
-if typeof Object.assign isnt "function"
-  Object.assign = (target, args...) ->
-    output = Object target
-    for source in args when source?
-      for own nextKey of source
-        output[nextKey] = source[nextKey]  
-    output
-
 class Imprea
-  constructor: ->
-  
   output: (names...) ->
     for name in names then do (name) =>
       globalObservableValues[name] ?= null
       @[name] = (value) =>
-        if not _.isEqual globalObservableValues[name], value
+        if not _.eq globalObservableValues[name], value
           globalObservableValues[name] = 
-            (if typeof value is 'object' then Object.assign({}, value) else value)
+            (if typeof value is 'object' then _.cloneDeep(value) else value)
           for observer in globalObservers[name] ? []
             observer.imprea[name] = value
             observer.func.call observer.reactCallSelf, name, value
